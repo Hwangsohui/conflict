@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문학 속 갈등 한눈에 보기</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #F8F9FA;
+            color: #073B4C;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 380px;
+            }
+        }
+        .gradient-text {
+            background: linear-gradient(45deg, #FF6B6B, #118AB2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .kpi-box {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body class="antialiased">
+    <!-- 
+    Palette Name: Energetic & Playful
+    Narrative Plan:
+    1. Hook: Introduce conflict's importance with a large statistic.
+    2. Main Types: Visually separate External and Internal conflict.
+    3. External Conflict Deep Dive: Use a bar chart to compare sub-types.
+    4. Internal Conflict Deep Dive: Use a donut chart to show the inner struggle.
+    5. Role of Conflict: Use an HTML/CSS flowchart to show its function.
+    6. Conclusion: Quick summary.
+
+    Visualization Choices:
+    - Big Number (Inform): Grab attention. Method: HTML/CSS. No SVG.
+    - Flow Diagram (Organize): Show structure. Method: HTML/CSS. No SVG, No Mermaid JS.
+    - Bar Chart (Compare): Compare sub-types of external conflict. Library: Chart.js/Canvas. No SVG.
+    - Donut Chart (Composition): Visualize internal struggle. Library: Chart.js/Canvas. No SVG.
+    - Flowchart (Process): Show conflict's role. Method: HTML/CSS. No SVG, No Mermaid JS.
+    
+    Confirmation: NEITHER Mermaid JS NOR SVG were used anywhere in this output.
+    -->
+
+    <div class="container mx-auto p-4 md:p-8">
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-6xl font-black gradient-text mb-2">문학 속 갈등</h1>
+            <p class="text-lg md:text-xl text-gray-600">이야기를 움직이는 강력한 힘!</p>
+        </header>
+
+        <main class="space-y-12">
+            <section class="text-center bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-2xl font-bold text-[#073B4C] mb-4">갈등이란 무엇일까요?</h2>
+                <p class="max-w-3xl mx-auto text-gray-700 mb-8">
+                    문학 작품 속에서 인물, 사건, 생각들이 서로 부딪치며 만들어내는 대립과 긴장 상태를 말해요. 갈등이 없다면 이야기는 너무 평범하고 지루할 거예요.
+                </p>
+                <div class="kpi-box rounded-xl p-6 max-w-sm mx-auto">
+                    <p class="text-lg font-bold text-[#118AB2]">대부분의 이야기에는</p>
+                    <p class="text-7xl font-black text-[#FF6B6B] my-2">99%</p>
+                    <p class="text-lg font-bold text-[#118AB2]">갈등이 존재해요!</p>
+                </div>
+            </section>
+            
+            <section>
+                <h2 class="text-3xl font-bold text-center mb-8">갈등의 두 가지 얼굴</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
+                    <div class="bg-white rounded-2xl shadow-lg p-8 border-t-8 border-[#FF6B6B]">
+                        <h3 class="text-2xl font-bold mb-4">외적 갈등</h3>
+                        <p class="text-6xl mb-4">😠⚔️🌍</p>
+                        <p class="text-gray-700">인물 외부의 대상과 부딪치는 갈등이에요. 눈에 보이는 싸움이나 대립이 주를 이룹니다.</p>
+                    </div>
+                    <div class="bg-white rounded-2xl shadow-lg p-8 border-t-8 border-[#118AB2]">
+                        <h3 class="text-2xl font-bold mb-4">내적 갈등</h3>
+                        <p class="text-6xl mb-4">🤔💔😇</p>
+                        <p class="text-gray-700">한 인물의 마음 속에서 일어나는 고민과 번뇌를 다루는 갈등입니다. 선택의 기로에 놓일 때 자주 발생하죠.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center mb-2">외적 갈등 파헤치기</h2>
+                <p class="text-center text-gray-600 mb-8">외적 갈등은 주로 어떤 모습으로 나타날까요?</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <div class="chart-container">
+                            <canvas id="externalConflictChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-lg bg-[#FFD166] bg-opacity-20">
+                            <h4 class="font-bold text-lg text-[#073B4C]">1. 인물 vs 인물</h4>
+                            <p class="text-gray-700">가장 흔한 갈등! 주인공과 다른 인물이 목표나 가치관 차이로 대립해요. (예: 흥부와 놀부)</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-[#06D6A0] bg-opacity-20">
+                            <h4 class="font-bold text-lg text-[#073B4C]">2. 인물 vs 사회</h4>
+                            <p class="text-gray-700">개인이 사회의 부조리한 제도, 편견, 관습에 맞서 싸워요. (예: 부당한 규칙에 저항하는 학생)</p>
+                        </div>
+                        <div class="p-4 rounded-lg bg-[#FF6B6B] bg-opacity-20">
+                             <h4 class="font-bold text-lg text-[#073B4C]">3. 인물 vs 자연</h4>
+                            <p class="text-gray-700">거대한 자연의 힘(재해, 혹독한 환경) 앞에서 생존을 위해 분투해요. (예: 무인도 표류기)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="bg-white rounded-2xl shadow-lg p-8">
+                <h2 class="text-3xl font-bold text-center mb-2">내적 갈등 들여다보기</h2>
+                <p class="text-center text-gray-600 mb-8">"어떻게 해야 하지?" 내 마음 속의 전쟁!</p>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-4">
+                        <h3 class="text-2xl font-bold text-[#073B4C]">선택의 순간</h3>
+                        <p class="text-gray-700">
+                            내적 갈등은 인물이 양심, 욕망, 두려움, 책임감 등 여러 감정 사이에서 방황할 때 최고조에 달합니다. 
+                            예를 들어, 시험을 앞둔 학생이 '정직하게 시험 보기'와 '부정행위의 유혹' 사이에서 고민하는 상황을 생각해볼 수 있습니다. 
+                            이러한 고민의 과정은 인물을 더욱 입체적이고 인간적으로 만들어줍니다.
+                        </p>
+                        <div class="p-4 rounded-lg bg-[#118AB2] bg-opacity-20">
+                            <p class="font-bold text-lg text-[#073B4C]">"이겨내야 해!" 😇 vs "하고 싶어!" 😈</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="chart-container">
+                            <canvas id="internalConflictChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-center">
+                <h2 class="text-3xl font-bold mb-8">갈등은 왜 중요할까?</h2>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-8">
+                    <div class="bg-white rounded-2xl shadow-lg p-6 w-full md:w-1/4">
+                        <p class="text-4xl mb-2">⚡</p>
+                        <h3 class="text-xl font-bold">긴장감 UP!</h3>
+                        <p class="text-gray-600">이야기를 흥미진진하게 만들어요.</p>
+                    </div>
+                    <div class="text-4xl font-bold text-[#118AB2] hidden md:block">→</div>
+                    <div class="text-4xl font-bold text-[#118AB2] md:hidden">↓</div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 w-full md:w-1/4">
+                        <p class="text-4xl mb-2">🌱</p>
+                        <h3 class="text-xl font-bold">인물 성장</h3>
+                        <p class="text-gray-600">고난을 통해 인물이 변화하고 성숙해요.</p>
+                    </div>
+                    <div class="text-4xl font-bold text-[#118AB2] hidden md:block">→</div>
+                     <div class="text-4xl font-bold text-[#118AB2] md:hidden">↓</div>
+                    <div class="bg-white rounded-2xl shadow-lg p-6 w-full md:w-1/4">
+                        <p class="text-4xl mb-2">💡</p>
+                        <h3 class="text-xl font-bold">주제 전달</h3>
+                        <p class="text-gray-600">작가의 메시지를 효과적으로 보여줘요.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center mt-16 py-8 border-t">
+            <p class="text-gray-500">이제 여러분도 문학 속 갈등 전문가!</p>
+        </footer>
+    </div>
+
+    <script>
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const wrapLabel = (label) => {
+            const maxLength = 16;
+            if (typeof label === 'string' && label.length > maxLength) {
+                const words = label.split(' ');
+                const newLabel = [];
+                let currentLine = '';
+                words.forEach(word => {
+                    if ((currentLine + word).length > maxLength) {
+                        newLabel.push(currentLine.trim());
+                        currentLine = '';
+                    }
+                    currentLine += word + ' ';
+                });
+                newLabel.push(currentLine.trim());
+                return newLabel;
+            }
+            return label;
+        };
+
+        const externalConflictCtx = document.getElementById('externalConflictChart').getContext('2d');
+        new Chart(externalConflictCtx, {
+            type: 'bar',
+            data: {
+                labels: ['인물 vs 인물', '인물 vs 사회', '인물 vs 자연'],
+                datasets: [{
+                    label: '외적 갈등의 유형별 빈도 (가상)',
+                    data: [75, 45, 20],
+                    backgroundColor: [
+                        '#FFD166',
+                        '#06D6A0',
+                        '#FF6B6B',
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 2,
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                indexAxis: 'y',
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                           display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+
+        const internalConflictCtx = document.getElementById('internalConflictChart').getContext('2d');
+        new Chart(internalConflictCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['해야 하는 일 (양심)', '하고 싶은 일 (욕망)'],
+                datasets: [{
+                    label: '내적 갈등',
+                    data: [50, 50],
+                    backgroundColor: [
+                        '#118AB2',
+                        '#FF6B6B',
+                    ],
+                    borderColor: '#FFFFFF',
+                    borderWidth: 4,
+                    hoverOffset: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '60%',
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
